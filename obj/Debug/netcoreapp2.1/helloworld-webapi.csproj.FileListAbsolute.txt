@@ -1,0 +1,14 @@
+/Users/jim/Workspaces/helloworld-webapi/bin/Debug/netcoreapp2.1/helloworld-webapi.deps.json
+/Users/jim/Workspaces/helloworld-webapi/bin/Debug/netcoreapp2.1/helloworld-webapi.runtimeconfig.json
+/Users/jim/Workspaces/helloworld-webapi/bin/Debug/netcoreapp2.1/helloworld-webapi.runtimeconfig.dev.json
+/Users/jim/Workspaces/helloworld-webapi/bin/Debug/netcoreapp2.1/helloworld-webapi.dll
+/Users/jim/Workspaces/helloworld-webapi/bin/Debug/netcoreapp2.1/helloworld-webapi.pdb
+/Users/jim/Workspaces/helloworld-webapi/obj/Debug/netcoreapp2.1/helloworld-webapi.csprojAssemblyReference.cache
+/Users/jim/Workspaces/helloworld-webapi/obj/Debug/netcoreapp2.1/helloworld-webapi.csproj.CoreCompileInputs.cache
+/Users/jim/Workspaces/helloworld-webapi/obj/Debug/netcoreapp2.1/helloworld-webapi.RazorAssemblyInfo.cache
+/Users/jim/Workspaces/helloworld-webapi/obj/Debug/netcoreapp2.1/helloworld-webapi.RazorAssemblyInfo.cs
+/Users/jim/Workspaces/helloworld-webapi/obj/Debug/netcoreapp2.1/helloworld-webapi.AssemblyInfoInputs.cache
+/Users/jim/Workspaces/helloworld-webapi/obj/Debug/netcoreapp2.1/helloworld-webapi.AssemblyInfo.cs
+/Users/jim/Workspaces/helloworld-webapi/obj/Debug/netcoreapp2.1/helloworld-webapi.RazorTargetAssemblyInfo.cache
+/Users/jim/Workspaces/helloworld-webapi/obj/Debug/netcoreapp2.1/helloworld-webapi.dll
+/Users/jim/Workspaces/helloworld-webapi/obj/Debug/netcoreapp2.1/helloworld-webapi.pdb
