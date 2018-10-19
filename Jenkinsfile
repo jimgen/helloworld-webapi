@@ -11,15 +11,18 @@ pipeline {
 		stage('Tests')
 		{
 			steps {
-                sh "/usr/local/share/dotnet/dotnet restore"
-				sh "/usr/local/share/dotnet/dotnet test helloworld-webapi.csproj -c Release --logger \"trx;LogFileName=TestResult.xml\""
+            //    sh "/usr/local/share/dotnet/dotnet restore"
+			//	sh "/usr/local/share/dotnet/dotnet test helloworld-webapi.csproj -c Release --logger \"trx;LogFileName=TestResult.xml\""
 			//	sh 'cp -R TestResults/TestResult.xml .' 
 			//	step([$class: 'MSTestPublisher', testResultsFile: 'TestResult.xml', failOnError: true, keepLongStdio: true])
 			}
 		}
 		stage('Build image') {
+            environment {
+                IMAGE_NAME = "helloworld-webapi"
+            }
 			steps {
-				sh 'docker build -t {IMAGE_NAME} .'
+				sh "docker build -t $IMAGE_NAME ."
 			}
 		} 
 		stage('Push image') {
