@@ -11,6 +11,7 @@ pipeline {
 		stage('Tests')
 		{
 			steps {
+            sh "echo \"Test done\""
             //    sh "/usr/local/share/dotnet/dotnet restore"
 			//	sh "/usr/local/share/dotnet/dotnet test helloworld-webapi.csproj -c Release --logger \"trx;LogFileName=TestResult.xml\""
 			//	sh 'cp -R TestResults/TestResult.xml .' 
@@ -18,8 +19,11 @@ pipeline {
 			}
 		}
 		stage('Build image') {
+            environment {
+                IMAGE_NAME = "helloworld-webapi"
+            }
 			steps {
-				sh "docker build -t helloworld-webapi ."
+				sh "docker build -t $IMAGE_NAME ."
 			}
 		} 
 		stage('Push image') {
