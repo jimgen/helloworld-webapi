@@ -11,6 +11,7 @@ pipeline {
 		stage('Tests')
 		{
 			steps {
+                sh "/usr/local/share/dotnet/dotnet restore"
 				sh "/usr/local/share/dotnet/dotnet test helloworld-webapi.csproj -c Release --logger \"trx;LogFileName=TestResult.xml\""
 			//	sh 'cp -R TestResults/TestResult.xml .' 
 			//	step([$class: 'MSTestPublisher', testResultsFile: 'TestResult.xml', failOnError: true, keepLongStdio: true])
