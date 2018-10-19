@@ -22,7 +22,7 @@ pipeline {
                 IMAGE_NAME = "helloworld-webapi"
             }
 			steps {
-				sh "docker build -t $IMAGE_NAME ."
+				sh "docker build -t ${IMAGE_NAME} ."
 			}
 		} 
 		stage('Push image') {
