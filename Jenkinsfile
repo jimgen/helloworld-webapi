@@ -89,7 +89,7 @@ pipeline {
         }
 
         always {
-				sh "curl -X POST -H 'Content-type: application/json' --data '{\"text\":\"Hello, World!\"}' https://hooks.slack.com/services/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"
+				sh "curl -X POST -H 'Content-type: application/json' --data '{\"text\":\"Result ${currentBuild.result}\"}' https://hooks.slack.com/services/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"
         }
     }
 }
