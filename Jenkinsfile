@@ -89,10 +89,7 @@ pipeline {
         }
 
         always {
-            step([$class: 'Mailer',
-                notifyEveryUnstableBuild: true,
-                recipients: "jimmy.gen@gmail.com",
-                sendToIndividuals: true])
+				sh "curl -X POST -H 'Content-type: application/json' --data '{\"text\":\"Hello, World!\"}' https://hooks.slack.com/services/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"
         }
     }
 }
