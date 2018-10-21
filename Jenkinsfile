@@ -45,12 +45,13 @@ pipeline {
 				IMAGE_NAME = "helloworld-webapi"
             }
 			steps {
+				sh "echo \"Docker Image Pushed\""
 				script {
-					docker.withRegistry("https://196093915263.dkr.ecr.ap-southeast-2.amazonaws.com', 'ecr:ap-southeast-2:jenkins") {
+					docker.withRegistry("https://196093915263.dkr.ecr.ap-southeast-2.amazonaws.com', 'ecr:jenkins") {
 						docker.image("helloworld-webapi").push('latest')
-					}
-					sh "echo \"Docker Image Pushed\""
+					}	
 				}
+				sh "echo \"Docker Image Pushed\""
 			}
 		}
 		stage('Run instance')
