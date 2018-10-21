@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace helloworld_webapi.Controllers
 {
-    [Route("api/test")]
+    [Route("/")]
     [ApiController]
     public class ValuesController : ControllerBase
     {

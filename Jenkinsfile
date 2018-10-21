@@ -12,10 +12,14 @@ pipeline {
 		{
 			steps {
             sh "echo \"Test done\""
-            //    sh "/usr/local/share/dotnet/dotnet restore"
-			//	sh "/usr/local/share/dotnet/dotnet test helloworld-webapi.csproj -c Release --logger \"trx;LogFileName=TestResult.xml\""
-			//	sh 'cp -R TestResults/TestResult.xml .' 
-			//	step([$class: 'MSTestPublisher', testResultsFile: 'TestResult.xml', failOnError: true, keepLongStdio: true])
+				sh "dotnet test helloworld-webapi.csproj -c Release --logger \"trx;LogFileName=TestResult.xml\""
+				sh 'cp -R TestResults/TestResult.xml .' 
+				step([$class: 'MSTestPublisher', testResultsFile: 'TestResult.xml', failOnError: true, keepLongStdio: true])
+			}
+		}
+		stage('Code Analysis') {
+			steps {
+				sh "echo \"Code Analysis\""
 			}
 		}
 		stage('Build image') {
@@ -27,9 +31,12 @@ pipeline {
 			}
 		} 
 		stage('Push image') {
+			environment {
+                ACCOUNT_ID = "196093915263"
+            }
 			steps {
 				script {
-					docker.withRegistry('https://{ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-credentials') {
+					docker.withRegistry("https://$ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-credentials") {
 						docker.image('{IMAGE_NAME}').push("v${env.BUILD_NUMBER}")
 						docker.image('{IMAGE_NAME}').push('latest')
 					}
@@ -73,7 +80,7 @@ pipeline {
         always {
             step([$class: 'Mailer',
                 notifyEveryUnstableBuild: true,
-                recipients: "{RECIPIENTS}",
+                recipients: "jimmy.gen@gmail.com",
                 sendToIndividuals: true])
         }
     }
