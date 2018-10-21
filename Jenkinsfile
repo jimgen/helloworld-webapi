@@ -8,7 +8,16 @@ pipeline {
 				checkout scm
 			}
 		}
-		stage('Tests')
+		stage('Unit Tests')
+		{
+			steps {
+            sh "echo \"Test done\""
+			//sh "dotnet test helloworld-webapi.csproj -c Release --logger \"trx;LogFileName=TestResult.xml\""
+			//	sh 'cp -R TestResults/TestResult.xml .' 
+			//	step([$class: 'MSTestPublisher', testResultsFile: 'TestResult.xml', failOnError: true, keepLongStdio: true])
+			}
+		}
+		stage('Integration Tests')
 		{
 			steps {
             sh "echo \"Test done\""
@@ -33,13 +42,15 @@ pipeline {
 		stage('Push image') {
 			environment {
                 ACCOUNT_ID = "196093915263"
+				IMAGE_NAME = "helloworld-webapi"
             }
 			steps {
 				script {
-					docker.withRegistry("https://$ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-credentials") {
+					docker.withRegistry("https://$ACCOUNT_ID.dkr.ecr.ap-southeast-2.amazonaws.com', 'ecr:us-east-1:aws-credentials") {
 						docker.image('{IMAGE_NAME}').push("v${env.BUILD_NUMBER}")
 						docker.image('{IMAGE_NAME}').push('latest')
 					}
+					sh "echo \"Docker Image Pushed\""
 				}
 			}
 		}
