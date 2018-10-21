@@ -46,7 +46,7 @@ pipeline {
             }
 			steps {
 				script {
-					docker.withRegistry("https://$ACCOUNT_ID.dkr.ecr.ap-southeast-2.amazonaws.com', 'ecr:us-east-1:aws-credentials") {
+					docker.withRegistry("https://$ACCOUNT_ID.dkr.ecr.ap-southeast-2.amazonaws.com', 'ecr:ap-southeast-2:jenkins") {
 						docker.image('{IMAGE_NAME}').push("v${env.BUILD_NUMBER}")
 						docker.image('{IMAGE_NAME}').push('latest')
 					}
