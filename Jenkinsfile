@@ -78,9 +78,9 @@ pipeline {
 					sh '''	
 						TASK_REVISION=`aws ecs describe-task-definition --task-definition $TASK_NAME --region ap-southeast-2 | jq .taskDefinition.revision`
 						if [ $SERVICES == "" ]; then 
-							aws ecs create-service --cluster $CLUSTER_NAME --region us-east-1 --service $SERVICE_NAME --task-definition $TASK_NAME:latest --desired-count 1 
+							aws ecs create-service --cluster $CLUSTER_NAME --region us-east-1 --service $SERVICE_NAME --task-definition $TASK_NAME:$TASK_REVISION --desired-count 1 
 						else 
-							aws ecs update-service --cluster $CLUSTER_NAME --service $SERVICE_NAME --task-definition $TASK_NAME:latest --desired-count 1 --region ap-southeast-2
+							aws ecs update-service --cluster $CLUSTER_NAME --service $SERVICE_NAME --task-definition $TASK_NAME:$TASK_REVISION --desired-count 1 --region ap-southeast-2
 						fi
 					'''
 			} }  
