@@ -1,7 +1,7 @@
 {
     "family": "helloworld--containers",
     "networkMode": "awsvpc",
-    "cpu": 2,
+    "cpu": "2",
     "containerDefinitions": [
       {
         "name": "helloworld",
