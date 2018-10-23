@@ -81,7 +81,7 @@ pipeline {
 						if [ -z $SERVICES ]; then 
 							aws ecs create-service --cluster $CLUSTER_NAME --region ap-southeast-2 --service-name $SERVICE_NAME --task-definition $TASK_NAME:$TASK_REVISION --desired-count 1 --launch-type FARGATE
 						else 
-							aws ecs update-service --cluster $CLUSTER_NAME --service-name $SERVICE_NAME --task-definition $TASK_NAME:$TASK_REVISION --desired-count 1 --region ap-southeast-2 --launch-type FARGATE
+							aws ecs update-service --cluster $CLUSTER_NAME --service $SERVICE_NAME --task-definition $TASK_NAME:$TASK_REVISION --desired-count 1 --region ap-southeast-2 --launch-type FARGATE
 						fi
 					'''
 			} }  
