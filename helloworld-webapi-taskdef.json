@@ -1,13 +1,12 @@
 {
     "family": "helloworld--containers",
     "networkMode": "awsvpc",
-    "cpu": "2",
+    "cpu": "256",
+    "memory": "512",
     "containerDefinitions": [
       {
         "name": "helloworld",
         "image": "196093915263.dkr.ecr.ap-southeast-2.amazonaws.com/helloworld-webapi:latest",
-        
-        "memory": 512,
         "portMappings": [
             {
                 "containerPort": 80,
