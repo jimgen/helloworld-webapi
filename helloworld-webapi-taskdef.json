@@ -18,6 +18,9 @@
                 "name": "ENV",
                 "value": "production"
             }
+        ],
+        "requiresCompatibilities": [
+            "EC2", "FARGATE"
         ]
       }
     ]
