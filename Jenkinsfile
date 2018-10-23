@@ -63,6 +63,8 @@ pipeline {
 		{
 			environment {
 				TASK_NAME = "helloworld-webapi-taskdef"
+				CLUSTER_NAME = "default"
+				SERVICE_NAME = "helloworld-webapi-service"
             }
 			steps { 
 				withCredentials( [[ $class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws_creds', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY' ]]) {
@@ -75,6 +77,11 @@ pipeline {
 					sh 'aws ecs register-task-definition --family $TASK_NAME --cli-input-json file://$TASK_NAME-v${BUILD_NUMBER}.json --region ap-southeast-2'
 					sh '''	
 						TASK_REVISION=`aws ecs describe-task-definition --task-definition $TASK_NAME --region ap-southeast-2 | jq .taskDefinition.revision`
+						if [ $SERVICES == "" ]; then 
+							aws ecs create-service --cluster $CLUSTER_NAME --region us-east-1 --service $SERVICE_NAME --task-definition $TASK_NAME:latest --desired-count 1 
+						else 
+							aws ecs update-service --cluster $CLUSTER_NAME --service $SERVICE_NAME --task-definition $TASK_NAME:latest --desired-count 1 --region ap-southeast-2
+						fi
 					'''
 			} }  
 			
