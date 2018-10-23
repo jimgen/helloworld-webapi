@@ -65,6 +65,7 @@ pipeline {
 				TASK_NAME = "helloworld-webapi-taskdef"
             }
 			steps {
+				aws("ecs get-login")
 				sh 'ls -al'
 				sh 'sed -e "s;%BUILD_NUMBER%;${BUILD_NUMBER};g" $TASK_NAME.json >  $TASK_NAME-v${BUILD_NUMBER}.json'
 				sh 'aws ecs register-task-definition --family $TASK_NAME --cli-input-json file://$TASK_NAME-v${BUILD_NUMBER}.json --region ap-southeast-2'
