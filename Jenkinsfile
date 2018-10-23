@@ -66,17 +66,15 @@ pipeline {
 				AWS_ACCESS_KEY_ID     = credentials('aws_creds-aws-secret-key-id')
         		AWS_SECRET_ACCESS_KEY = credentials('aws_creds-aws-secret-access-key')
             }
-			steps {
-				sh "export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID"
-				sh "export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY"
-				sh 'export AWS_DEFAULT_REGION=ap-southeast-2'
-
-				sh 'sed -e "s;%BUILD_NUMBER%;${BUILD_NUMBER};g" $TASK_NAME.json >  $TASK_NAME-v${BUILD_NUMBER}.json'
-				sh 'aws ecs register-task-definition --family $TASK_NAME --cli-input-json file://$TASK_NAME-v${BUILD_NUMBER}.json --region ap-southeast-2'
-				sh '''	
-					TASK_REVISION=`aws ecs describe-task-definition --task-definition $TASK_NAME --region ap-southeast-2 | jq .taskDefinition.revision`
-				'''
-			}
+			steps { 
+				withCredentials( [[ $class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws_creds', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY' ]]) {
+					 echo "Listing contents of an S3 bucket." 
+					 sh "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} \ 
+					 AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} \ 
+					 AWS_REGION=us-east-1 \ 
+					 aws s3 ls clouductivity-demo" 
+			} }  
+			
 		}
 		stage('Clean up')
 		{		
