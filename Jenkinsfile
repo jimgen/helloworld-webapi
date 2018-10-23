@@ -62,7 +62,7 @@ pipeline {
 		stage('Run instance')
 		{
 			environment {
-				TASK_NAME = "helloworld-webapi-Task"
+				TASK_NAME = "helloworld-webapi-taskdef"
             }
 			steps {
 				sh 'sed -e "s;%BUILD_NUMBER%;${BUILD_NUMBER};g" $TASK_NAME.json >  $TASK_NAME-v${BUILD_NUMBER}.json'
