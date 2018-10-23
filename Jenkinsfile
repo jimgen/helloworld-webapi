@@ -28,7 +28,9 @@ pipeline {
 		}
 		stage('Code Analysis') {
 			agent {
-                docker { image 'newtmitch/sonar-scanner' }
+                docker { 
+					image 'newtmitch/sonar-scanner' 
+				}
             }
 			steps {
 				sh "echo \"Code Analysis\""
@@ -59,17 +61,14 @@ pipeline {
 		}
 		stage('Run instance')
 		{
+			environment {
+				TASK_NAME = "helloworld-webapi-Task"
+            }
 			steps {
-				sh 'sed -e "s;%BUILD_NUMBER%;${BUILD_NUMBER};g" {TASK_NAME}.json >  {TASK_NAME}-v${BUILD_NUMBER}.json'
-				sh 'aws ecs register-task-definition --family {TASK_NAME} --cli-input-json file://{TASK_NAME}-v${BUILD_NUMBER}.json --region us-east-1'
+				sh 'sed -e "s;%BUILD_NUMBER%;${BUILD_NUMBER};g" $TASK_NAME.json >  $TASK_NAME-v${BUILD_NUMBER}.json'
+				sh 'aws ecs register-task-definition --family $TASK_NAME --cli-input-json file://$TASK_NAME-v${BUILD_NUMBER}.json --region ap-southeast-2'
 				sh '''	
-					TASK_REVISION=`aws ecs describe-task-definition --task-definition {TASK_NAME} --region us-east-1 | jq .taskDefinition.revision`
-					SERVICES=`aws ecs describe-services --services {SERVICE_NAME} --cluster {CLUSTER_NAME} --region us-east-1 | jq '.services[] | length'`
-					if [ $SERVICES == "" ]; then 
-						aws ecs create-service --cluster {CLUSTER_NAME} --region us-east-1 --service {SERVICE_NAME} --task-definition {TASK_NAME}:${TASK_REVISION} --desired-count 1 
-					else 
-						aws ecs update-service --cluster {CLUSTER_NAME} --service {SERVICE_NAME} --task-definition {TASK_NAME}:${TASK_REVISION} --desired-count 1 --region us-east-1
-					fi
+					TASK_REVISION=`aws ecs describe-task-definition --task-definition $TASK_NAME --region ap-southeast-2 | jq .taskDefinition.revision`
 				'''
 			}
 		}
