@@ -63,8 +63,6 @@ pipeline {
 		{
 			environment {
 				TASK_NAME = "helloworld-webapi-taskdef"
-				AWS_ACCESS_KEY_ID     = credentials('aws_creds-aws-secret-key-id')
-        		AWS_SECRET_ACCESS_KEY = credentials('aws_creds-aws-secret-access-key')
             }
 			steps { 
 				withCredentials( [[ $class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws_creds', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY' ]]) {
