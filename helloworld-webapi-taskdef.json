@@ -5,8 +5,8 @@
       {
         "name": "helloworld",
         "image": "196093915263.dkr.ecr.ap-southeast-2.amazonaws.com/helloworld-webapi:latest",
-        "cpu": "256",
-        "memory": "512",
+        "cpu": 2,
+        "memory": 512,
         "portMappings": [
             {
                 "containerPort": 80,
