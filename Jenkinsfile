@@ -63,9 +63,14 @@ pipeline {
 		{
 			environment {
 				TASK_NAME = "helloworld-webapi-taskdef"
+				AWS_ACCESS_KEY_ID     = credentials('aws_creds-aws-secret-key-id')
+        		AWS_SECRET_ACCESS_KEY = credentials('aws_creds-aws-secret-access-key')
             }
 			steps {
-				sh 'echo $AWS_ACCESS_KEY_ID'
+				sh "export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID"
+				sh "export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY"
+				sh 'export AWS_DEFAULT_REGION=ap-southeast-2'
+
 				sh 'sed -e "s;%BUILD_NUMBER%;${BUILD_NUMBER};g" $TASK_NAME.json >  $TASK_NAME-v${BUILD_NUMBER}.json'
 				sh 'aws ecs register-task-definition --family $TASK_NAME --cli-input-json file://$TASK_NAME-v${BUILD_NUMBER}.json --region ap-southeast-2'
 				sh '''	
