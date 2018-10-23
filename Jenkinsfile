@@ -47,7 +47,7 @@ pipeline {
 			steps {
 				sh "echo \"Docker Image Pushed\""
 				script {
-					docker.withRegistry("https://196093915263.dkr.ecr.ap-southeast-2.amazonaws.com', 'ecr:ap-southeast-2:aws_creds") {
+					docker.withRegistry("https://196093915263.dkr.ecr.ap-southeast-2.amazonaws.com", "ecr:ap-southeast-2:aws_creds") {
 						docker.image("helloworld-webapi").push('latest')
 					}	
 				}
