@@ -27,8 +27,11 @@ pipeline {
 			}
 		}
 		stage('Code Analysis') {
+			agent {
+                docker { image 'newtmitch/sonar-scanner' }
+            }
 			steps {
-				sh "echo \"Code Analysis\""
+				//sh "echo \"Code Analysis\""
 			}
 		}
 		stage('Build image') {
