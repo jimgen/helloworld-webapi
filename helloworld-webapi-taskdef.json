@@ -3,7 +3,7 @@
     "networkMode": "awsvpc",
     "cpu": "256",
     "memory": "512",
-    "roleArn": "arn:aws:iam::196093915263:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::196093915263:role/ecsTaskExecutionRole",
     "containerDefinitions": [
       {
         "name": "helloworld",
