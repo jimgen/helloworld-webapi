@@ -63,7 +63,7 @@ pipeline {
 		{
 			environment {
 				TASK_NAME = "helloworld-webapi-taskdef"
-				CLUSTER_NAME = "default"
+				CLUSTER_NAME = "jim-test"
 				SERVICE_NAME = "helloworld-webapi-service"
             }
 			steps { 
