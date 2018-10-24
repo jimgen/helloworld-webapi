@@ -15,6 +15,7 @@
             }
         ],
         "essential": true,
+        "disableNetworking": true,
         "environment": [
             {
                 "name": "ENV",
