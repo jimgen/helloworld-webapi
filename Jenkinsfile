@@ -28,7 +28,7 @@ pipeline {
 		}
 		stage('Code Analysis') {
 			steps {
-				docker.image('newtmitch/sonar-scanner').withRun('-v $(pwd):/root/src sonar-scanner -Dsonar.host.url=http://sonarqube.kaizen.red:9000 -Dsonar.login=88e3eeb29a3d4d0e4622eae32f4fefb3883e9d98') {}
+				docker.image('newtmitch/sonar-scanner').withRun("-v $(pwd):/root/src sonar-scanner -Dsonar.host.url=http://sonarqube.kaizen.red:9000 -Dsonar.login=88e3eeb29a3d4d0e4622eae32f4fefb3883e9d98") {}
 				sh "echo \"Code Analysis\""
 			}
 		}
